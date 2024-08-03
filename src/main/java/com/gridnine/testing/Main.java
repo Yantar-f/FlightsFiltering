@@ -50,12 +50,9 @@ public class Main {
                 var segments = flight.getSegments();
                 long groundSeconds = 0;
 
-                    for (int i = 1; i < flight.getSegments().size(); ++i) {
-                        groundSeconds +=
-                                segments.get(i).getDepartureDate().toEpochSecond(ZoneOffset.UTC) -
+                for (int i = 1; i < flight.getSegments().size(); ++i)
+                    groundSeconds += segments.get(i).getDepartureDate().toEpochSecond(ZoneOffset.UTC) -
                                         segments.get(i-1).getArrivalDate().toEpochSecond(ZoneOffset.UTC);
-
-                }
 
                 return TimeUnit.HOURS.toSeconds(2) < groundSeconds;
         })
