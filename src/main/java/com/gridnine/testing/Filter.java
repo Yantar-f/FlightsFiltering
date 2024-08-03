@@ -19,14 +19,14 @@ public interface Filter<T> {
         }
         
         public Filter<T> build() {
-            return new Filter<T>() {
+            return new Filter<>() {
                 private final List<Condition<T>> conditions =
                         new ArrayList<>(FilterBuilder.this.conditionsDisjunction);
 
                 @Override
                 public List<T> apply(List<T> tList) {
                     return tList.stream()
-                            .filter(t -> conditions.stream().anyMatch(c -> c.apply(t)))
+                            .filter(t -> conditions.stream().anyMatch(c -> c.isApplied(t)))
                             .toList();
                 }
             };
@@ -38,7 +38,7 @@ public interface Filter<T> {
         }
         
         public FilterBuilder<T> and(Condition<T> condition) {
-            conditionsDisjunction.get(conditionsDisjunction.size()-1).and(condition);
+            conditionsDisjunction.get(conditionsDisjunction.size()-1).add(condition);
             return this;
         }
     }
@@ -52,11 +52,11 @@ public interface Filter<T> {
         }
 
         @Override
-        public boolean apply(T t) {
-            return conditionsConjunction.stream().allMatch(condition -> condition.apply(t));
+        public boolean isApplied(T t) {
+            return conditionsConjunction.stream().allMatch(condition -> condition.isApplied(t));
         }
 
-        public void and(Condition<T> condition) {
+        public void add(Condition<T> condition) {
             conditionsConjunction.add(condition);
         }
     }

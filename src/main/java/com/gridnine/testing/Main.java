@@ -1,6 +1,5 @@
 package com.gridnine.testing;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
@@ -51,10 +50,10 @@ public class Main {
                 var segments = flight.getSegments();
                 long groundSeconds = 0;
 
-                for (int i = 1; i < flight.getSegments().size(); ++i) {
-                    groundSeconds +=
-                            segments.get(i-1).getArrivalDate().toEpochSecond(ZoneOffset.UTC) -
-                                segments.get(i).getDepartureDate().toEpochSecond(ZoneOffset.UTC);
+                    for (int i = 1; i < flight.getSegments().size(); ++i) {
+                        groundSeconds +=
+                                segments.get(i).getDepartureDate().toEpochSecond(ZoneOffset.UTC) -
+                                        segments.get(i-1).getArrivalDate().toEpochSecond(ZoneOffset.UTC);
 
                 }
 
