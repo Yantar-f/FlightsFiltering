@@ -8,12 +8,12 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) {
         var flights = FlightBuilder.createFlights();
-        var beforeCurrentTimeFlights = extractFlightsBeforeCurrentTime(flights);
+        var afterCurrentTimeFlights = extractFlightsBeforeCurrentTime(flights);
         var corruptedSegmentsFlights = extractCorruptedSegmentsFlights(flights);
         var groundTimeTwoHoursFlights = extractGroundTimeGtTwoHoursFlights(flights);
 
         System.out.println("Flights: " + flights);
-        System.out.println("Flights before current time: " + beforeCurrentTimeFlights);
+        System.out.println("Flights after current time: " + afterCurrentTimeFlights);
         System.out.println("Flights with corrupted segments: " + corruptedSegmentsFlights);
         System.out.println("Flights with spent ground time greater then 2 hours: " + groundTimeTwoHoursFlights);
     }
